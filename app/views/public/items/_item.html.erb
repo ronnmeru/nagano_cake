@@ -1,0 +1,11 @@
+<div class="item-container">
+  <%= link_to item_path(item.id), class: "btn-link" do %>
+    <div id="image_field">
+      <%= attachment_image_tag(item, :image, size: "200x160", fallback: "no_image.jpg") %>
+    </div>
+    <p class="item_name">
+      <%= item.name %>
+    </p>
+  <% end %>
+  <p>¥<%= (item.price*1.1).floor %>（税込）</p>
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="mt-4 mb-4 bg-light d-inline-block">
+    <h4 class="px-2 pt-2">ショッピングカート</h4>
+  </div>
+  <div class="empty-cart">
+    <%= link_to "カートを空にする", cart_items_destroy_all_path,method: :delete, class: "btn btn-danger" %>
+  </div>
+  <table class="table table-hover table-bordered">
+    <thead class="bg-light">
+      <tr align="left">
+        <th>商品名</th>
+        <th>単価（税込）</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sum = 0 %>
+      <% @cart_items.each do |cart_item| %>
+          <tr>
+            <td><%= attachment_image_tag cart_item.item, :image, size: "60x50", fallback: "no_image.jpg"%>　<%= cart_item.item.name %></td>
+            <td><%= (cart_item.item.price * 1.1).floor %></td>
+            <td>
+              <%= form_with model:cart_item, url:cart_item_path(cart_item.id), method: :patch , local: true do |f| %>
+                <%= f.number_field :amount, class: "amount", size: 10, min: 1 %>
+                <%= f.submit "変更", class: "btn btn-success" %>
+              <% end %>
+            </td>
+            <td><%= (cart_item.item.price * 1.1).floor * cart_item.amount %></td>
+            <td><%= link_to '削除する', cart_item_path(cart_item), method: :delete, local: true, class: "btn btn-danger" %></td>
+          </tr>
+      <% @sum += (cart_item.item.price * 1.1).floor * cart_item.amount %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="row-md-12">
+    <div class="col-md-offset-1 col-md-2 keep-shopping">
+      <div class ="action">
+        <%= link_to " 買い物を続ける", items_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+    <div class="total-box">
+      <table class="table table-bordered text-left">
+        <thead>
+          <tr>
+            <td class="bg-light total_label"><strong>合計金額</strong></td>
+            <td class="total_amount"><%= @sum %></td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <%= link_to " 情報入力に進む", new_order_path, class: "btn btn-success" %>
+  </div>
+</div>
+

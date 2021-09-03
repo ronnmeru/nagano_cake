@@ -1,0 +1,54 @@
+<div class="col-md-2 offset-md-2">
+ <h1 class="p-3 md-2 bg-light text-dark">商品詳細</h1>
+</div>
+<div class="row">
+    <div class="col-md-2 offset-md-2">
+      <div class="form-group">
+
+        <table>
+          <thead>
+            <tr>
+          　  <th></th>
+              <th><%= attachment_image_tag @item, :image, :size => '300x250',fallback: "no_image.jpg" %></th>
+            </tr>
+          </thead>
+        </table>
+     </div>
+    </div>
+
+<div class="col-md-5 offset-md-1">
+  <div class="form-group">
+
+  <div class="form-group row">
+    <p class="col-md-3 pt-1 mb-0">商品名</p>
+    <%= @item.name %>
+  </div>
+
+  <div class="form-group row">
+    <p class="col-md-3 pt-1 mb-0">商品説明</p>
+    <%= @item.introduction %>
+  </div>
+
+  <div class="form-group row">
+    <p class="col-md-3 pt-1 mb-0">ジャンル</p>
+    <%= @item.genre.name %>
+  </div>
+
+  <div class="form-group row">
+    <p class="col-md-3 pt-1 mb-0">税込価格　　　（税抜価格）</p>
+    <%= (@item.price*1.1).to_i %>   (<%= @item.price %>) 円</div>
+
+  <div class="form-group row">
+    <p class="col-md-3 pt-1 mb-0">販売ステータス</p>
+     <% if @item.is_active == true %>
+      <font color="green">販売中
+     <% else %>
+      <font color="gray">販売中止
+     <% end %>
+  </div>
+
+  <div class="form-group row">
+    <p class="col-md-3 pt-1 mb-0"><%= link_to '商品編集', edit_admin_item_path(@item), class: "btn btn-success"  %></p>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <div class="mt-4 mb-4 bg-light d-inline-block">
+        <h4 class="px-2 pt-2">注⽂履歴⼀覧</h4>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <th>注文日</th>
+            <th>配送先</th>
+            <th>注文商品</th>
+            <th>支払金額</th>
+            <th>ステータス</th>
+             <th>注文詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td>
+                <%= order.created_at.strftime("%Y/%m/%d") %>
+              </td>
+              <td>
+                〒<%= order.postal_code %><br>
+                <%= order.address %><br>
+                <%= order.name %>
+              </td>
+              <td class="text-nowrap">
+                <% order.order_details.each do |order_item| %>
+                  <%= order_item.item.name %><br>
+                <% end %>
+              </td>
+              <% amount_billed = order.total_payment + order.shipping_cost %>
+              <td>
+                <%= amount_billed.to_s(:delimited) %>円
+              </td>
+              <td>
+                <%= order.order_status %>
+              </td>
+              <td class="text-center pt-4">
+                <%= link_to "表示する", order_path(order.id), class: "btn btn-primary" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <h6 class="d-flex justify-content-center"><%= paginate @orders %></h6>
+    </div>
+  </div>
+</div>

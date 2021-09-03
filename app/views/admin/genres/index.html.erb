@@ -1,0 +1,48 @@
+<% if @genre.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @genre.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="col-md-5 offset-md-2">
+  <h1 class="p-3 md-2 bg-light text-dark">ジャンル一覧・追加</h1>
+</div>
+
+<div class="col-md-8 offset-md-2">
+  <%= form_with model:@genre, url:admin_genres_path, method: :post, local:true do |f| %>
+    <div class="form-group row">
+      <p class="col-md-3 pt-1 mb-0">ジャンル名</p>
+      <p><%= f.text_field :name %></p>
+      <p><%= f.submit '新規登録', class: "btn btn-success" %></p>
+    </div>
+
+    <table class='table'>
+      <thead class="bg-light">
+        <tr>
+          <th>ジャンル</th>
+        </tr>
+      </thead>
+    </table>
+  <% end %>
+  <% @genres.each do |genre| %>
+    <div class="col-md-5 offset-md-1">
+      <div class="form-group">
+        <div class="form-group row">
+          <p class="col-md-9 pt-1 mb-0"><%= genre.name %></p>
+          <%= link_to "編集する",  edit_admin_genre_path(genre), class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="text-center">
+    <ul class="pagination">
+      <%= paginate(@genres) %>
+    </ul>
+  </div>
+</div>
+

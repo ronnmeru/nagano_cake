@@ -1,0 +1,84 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+
+      <div class="mt-4 mb-4 bg-light d-inline-block">
+        <h4 class="px-2 pt-2">配送先登録/一覧</h4>
+      </div>
+
+      <%= form_with model: @address, url: addresses_path, local: true do |f| %>
+        <div class="row">
+          <div class="col">
+
+            <% if @address.errors.any? %>
+              <div class="pb-2 text-danger">
+                <ul>
+                  <% @address.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="form-group row">
+              <p class="col-lg-3 pt-1">郵便番号（ハイフンなし）</p>
+              <%= f.text_field :postal_code, placeholder:"0000000", class: "form-control col-lg-6" %>
+            </div>
+
+            <div class="form-group row">
+              <p class="col-lg-3 pt-1">住所</p>
+              <%= f.text_field :address, placeholder:"東京都渋⾕区代々⽊神園町0-0", class: "form-control col-lg-6" %>
+            </div>
+
+            <div class="row">
+              <p class="col-lg-3 pt-1">宛名</p>
+              <%= f.text_field :name, placeholder:"令和道子", class: "form-control col-lg-6" %>
+              <div class="col-lg-3 py-4 py-lg-0 text-center">
+                <%= f.submit "新規登録", class:"btn btn-success px-4" %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="row mx-2 mx-sm-0">
+    <div class="col-lg-10 mx-auto">
+      <table class="table table-bordered">
+        <thead class="bg-light">
+          <tr>
+            <th class="text-nowrap">郵便番号</th>
+            <th>住所</th>
+            <th class="text-nowrap">宛名</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @addresses.each do |address| %>
+            <tr>
+              <td><%= address.postal_code %></td>
+              <td><%= address.address %></td>
+              <td><%= address.name %></td>
+              <td colspan="2">
+                <div class="row">
+                  <div class="col-lg-6 px-2 pb-3 pb-lg-0 text-center">
+                    <%= link_to "編集する", edit_address_path(address.id), class: "btn btn-success" %>
+                  </div>
+                  <div class="col-lg-6 px-2 text-center">
+                    <%= link_to "削除する", address_path(address.id), method: :delete, class: "btn btn-danger" %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <h6 class="d-flex justify-content-center"><%= paginate @addresses %></h6>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,51 @@
+<% if @item.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="col-md-8 offset-md-2">
+ <h1 class="p-3 md-2 bg-light text-dark">商品新規登録</h1>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="form-group">
+
+<%= form_with model:@item, url: admin_items_path, method: :post,local:true do |f| %>
+<!--<= form_for @item do |f| %>-->
+     <div class="form-group row">
+        <p class="col-md-3 pt-1 mb-0">商品画像</p>
+        <%= f.attachment_field :image %>
+     </div>
+
+    <div class="form-group row">
+      <p class="col-md-3 pt-1 mb-0">商品名</p>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="form-group row">
+      <p class="col-md-3 pt-1 mb-0">商品説明</p>
+      <%= f.text_area :introduction %>
+    </div>
+
+    <div class="form-group row">
+      <p class="col-md-3 pt-1 mb-0">ジャンル</p>
+      <%= f.collection_select :genre_id, @genres, :id , :name  %>
+    </div>
+
+    <div class="form-group row">
+      <p class="col-md-3 pt-1 mb-0">税抜価格</p>
+      <%= f.text_field :price %>円
+    </div>
+
+    <div class="form-group row">
+      <p class="col-md-3 pt-1 mb-0">販売ステータス</p>
+      <p><%= f.radio_button :is_active, "true",:size => "30*260" %> 販売中</p>
+      <p><%= f.radio_button :is_active, "false",:size => "30*260" %> 販売停止中</p>
+   </div>
+
+  <%= f.submit '新規登録', class: "btn btn-success" %>
+ <% end %>

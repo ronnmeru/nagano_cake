@@ -1,0 +1,70 @@
+<div class="container" style="min-width: 330px">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+
+      <div class="mt-4 mb-4 bg-light d-inline-block">
+        <h4 class="px-2 pt-2">会員情報編集</h4>
+      </div>
+
+      <%= form_with model: current_customer, url: customer_path, local: true do |f| %>
+
+        <div class="row mx-2">
+          <div class="col-lg-9 mx-auto">
+
+            <% if current_customer.errors.any? %>
+              <div class="pb-2 text-danger">
+                <ul>
+                  <% current_customer.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="form-group row">
+              <p class="col-md-3 pt-1 mb-0">名前</p>
+              <%= f.text_field :last_name, autofocus: true, placeholder:"山田", class: "form-control col-5 col-sm-4" %>
+              <%= f.text_field :first_name, placeholder:"花子", class: "form-control col-5 col-sm-4 offset-1" %>
+            </div>
+
+            <div class="form-group row">
+              <p class="col-md-3 pt-1 mb-0">フリガナ</p>
+              <%= f.text_field :last_name_kana, placeholder:"ヤマダ", class: "form-control col-5 col-sm-4" %>
+              <%= f.text_field :first_name_kana, placeholder:"ハナコ", class: "form-control col-5 col-sm-4 offset-1" %>
+            </div>
+
+            <div class="form-group row">
+              <p class="col-md-3 pt-1 mb-0">郵便番号</p>
+              <%= f.text_field :postal_code, placeholder:"150041", class: "form-control " %>
+            </div>
+
+            <div class="form-group row">
+              <p class="col-md-3 pt-1 mb-0">住所</p>
+              <%= f.text_field :address, placeholder:"東京都渋⾕区神南１丁目１９-１１　パークウェースクエア２４階", class: "form-control col-md-9" %>
+            </div>
+
+            <div class="form-group row">
+              <p class="col-md-3 pt-1 mb-0">電話番号</p>
+              <%= f.text_field :phone_number, placeholder:"0368694700", class: "form-control col-md-9" %>
+            </div>
+
+            <div class="form-group row">
+              <p class="col-md-3 pt-1 mb-0">メールアドレス</p>
+              <%= f.text_field :email, autocomplete: "email", placeholder:"hoge@example.com", class: "form-control col-md-9" %>
+            </div>
+
+            <div class="row">
+          <div class="col-6 col-md-5 offset-md-3 p-0">
+            <%= f.submit "編集内容を保存", class:"btn btn-success mt-3 px-4" %>
+          </div>
+          <div class="col-6 col-md-4 text-right p-0">
+            <%= link_to "退会する", unsubscribe_path, class:"btn  btn-danger mt-3 px-4" %>
+          </div>
+        </div>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>nagano_cake</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="bg-dark text-white">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <%= link_to "ながのCAKE", root_path, class: 'navbar-brand text-white' %>
+          <ul class="navbar-nav ml-auto">
+            <% if customer_signed_in? %>
+              <li id="public_name">ようこそ、<%= current_customer.last_name %>さん！</li>
+              <li class="nav-item"><%= link_to "マイページ", customer_path(current_customer.id), class: 'nav-link text-white' %></li>
+              <li class="nav-item"><%= link_to "商品一覧", items_path, class: 'nav-link text-white' %></li>
+              <li class="nav-item"><%= link_to "カート", cart_items_path, class: 'nav-link text-white' %></li>
+              <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-white' %></li>
+
+            <% elsif admin_signed_in? %>
+          　  <li clss="nav-item"><%= link_to "商品一覧", admin_items_path %></li>
+          　  <li class"nav-item"><%= link_to "会員一覧", admin_customers_path %></li>
+          　  <li class="nav-item"><%= link_to "注文履歴一覧", admin_top_path %></li>
+             <li class="nav-item"><%= link_to "ジャンル一覧", admin_genres_path %></li>
+             <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+
+             <li class="nav-item">
+                <%= text_field_tag :search %>
+                <%= submit_tag 'Search', :name => nil %>
+             </li>
+
+
+
+            <% else %>
+              <li class="nav-item"><%= link_to "About", about_path, class: 'nav-link text-white' %></li>
+              <li class="nav-item"><%= link_to "商品一覧", items_path, class: 'nav-link text-white' %></li>
+              <li class="nav-item"><%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-white' %></li>
+              <li class="nav-item"><%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-white' %></li>
+            <% end %>
+            </ul>
+        </div>
+      </nav>
+    </header>
+    <%= yield %>
+  </body>
+</html>
