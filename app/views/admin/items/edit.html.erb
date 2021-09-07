@@ -14,7 +14,7 @@
   <div class="col-md-8 offset-md-2">
     <div class="form-group">
 
-      <%= form_with model:@item,url:admin_item_path, method: :patch do |f| %>
+      <%= form_with model:@item,url:admin_item_path, method: :patch,local:true do |f| %>
       <!--<= form_for @item do |f| %>-->
 
       <div class="form-group row">
