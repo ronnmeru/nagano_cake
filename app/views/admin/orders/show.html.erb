@@ -23,13 +23,14 @@
      <th>支払い方法</th><th><%= @order.payment_method %></th>
     </tr>
     <tr>
-    <%= form_with(model:@order, url:admin_order_path, method: :patch, local: true) do |f| %>
      <th>注文ステータス</th>
      <th>
+         <%= form_with(model:@order, url:admin_order_path, method: :patch, local: true) do |f| %>
          <%= f.select :order_status, Order.order_statuses.keys.to_a, include_blank: true %>
          <%= f.submit '更新' %>
-     </th>
-    <% end %>
+          <% end %>
+    </th>
+
     </tr>
     </tbody>
 </table>
@@ -54,13 +55,14 @@
         <td scope="row"><%= order_detail.amount %></td>
         <% total_payment = (order_detail.price * 1.1).floor * order_detail.amount %>
         <td scope="row">¥<%= total_payment.to_s(:delimited) %></td>
-        <%= form_with model: order_detail, url: admin_order_detail_path, method: :patch do |f| %>
+
             <td scope="row">
+            <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch do |f| %>
             <%= f.hidden_field :order_detail_id, :value => order_detail.id %>
             <%= f.select :making_status, OrderDetail.making_statuses.keys.to_a, include_blank: true %>
     		<%= f.submit '更新' %>
+    	    <% end %>
     		</td>
-    	<% end %>
       </tr>
       <% end %>
     </tbody>

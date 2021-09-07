@@ -13,13 +13,13 @@ class Public::CustomersController < ApplicationController
       end
   end
 
-  def quit
-  end
+ def  withdraw
+     current_customer.update(is_deleted: true)
+     reset_session
+     redirect_to root_path
+ end
 
-  def out
-    current_customer.update(is_deleted: true)
-    reset_session
-    redirect_to root_path
+  def usubscribe
   end
 
 

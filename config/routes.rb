@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     root to:'homes#top'
     get 'about' => 'homes#about'
     resources :items, only:[:index, :show]
-    get 'unsubscribe' => 'customers#usubscribe'
+    get 'unsubscribe' => 'customers#unsubscribe'
     patch 'withdraw' =>  'customers#withdraw'
     resources :customers, only:[:show,:edit,:update]
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
