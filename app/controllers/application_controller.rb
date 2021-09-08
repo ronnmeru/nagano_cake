@@ -15,4 +15,12 @@ class ApplicationController < ActionController::Base
      root_path
   end
  end
+
+ def after_sign_out_path_for(resource)
+  if resource_name == :admin
+     new_admin_session_path
+  elsif resource_name == :public
+     root_path
+  end
+ end
 end
