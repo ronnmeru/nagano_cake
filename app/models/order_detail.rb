@@ -1,5 +1,5 @@
 class OrderDetail < ApplicationRecord
-belongs_to :order
+  belongs_to :order
   belongs_to :item
    enum making_status: {
     制作不可: 0,

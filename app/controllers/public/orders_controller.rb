@@ -1,5 +1,8 @@
 class Public::OrdersController < ApplicationController
   def new
+    if !current_customer.cart_items.exists?
+     redirect_to cart_items_path
+    end
     @order = Order.new
   end
 

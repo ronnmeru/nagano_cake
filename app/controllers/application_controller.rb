@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
  def after_sign_in_path_for(resource)
 
   if resource_name == :admin
-     admin_items_path
-  elsif resource_name == :public
+     admin_top_path
+  elsif resource_name == :customer
      root_path
   end
  end
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
  def after_sign_out_path_for(resource)
   if resource_name == :admin
      new_admin_session_path
-  elsif resource_name == :public
+  elsif resource_name == :customer
      root_path
   end
  end

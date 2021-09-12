@@ -9,6 +9,12 @@ class Admin::OrdersController < ApplicationController
 
   def update
      @order = Order.find(params[:id])
+     @order.update(order_params)
+     if @order.order_status=="入金確認"
+        @order.order_details.each do |order_detail|
+         order_detail.update(making_status: :)
+        end
+     end
     if defined? order_params[:order_status]
      @customer = @order.customer
      @items = Item.all
