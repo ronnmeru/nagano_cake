@@ -35,7 +35,7 @@
                   <%= order_item.item.name %><br>
                 <% end %>
               </td>
-              <% amount_billed = order.total_payment + order.shipping_cost %>
+              <% amount_billed = order.total_payment %>
               <td>
                 <%= amount_billed.to_s(:delimited) %>円
               </td>

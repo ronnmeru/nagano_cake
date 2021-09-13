@@ -15,7 +15,7 @@ class Admin::ItemsController < ApplicationController
     # @item.user_id = current_user.id
     # byebug
     if @item.save
-    redirect_to admin_items_path
+    redirect_to admin_item_path(@item)
     else
     @genres = Genre.all
     render :new
