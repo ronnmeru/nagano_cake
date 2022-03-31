@@ -1,15 +1,14 @@
-<div class="container">
+ <h2 class="item-headline">
+    <strong>商品一覧</strong><span class="small">（全<%= @items.total_count %>件）</span>
+</h2>
+ <div class="container">
   <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4">
-      <h2 class="item-headline">
-        <strong>商品一覧</strong><span class="small">（全<%= @items.total_count %>件）</span>
-      </h2>
-      <div class="clearfix item-box">
-        <% @items.each do |item| %>
-        <%= render "item", item: item %>
-        <% end %>
+      <% @items.each do |item| %>
+       <div class="col-lg-3 col-md-6 mb-4">
+      <%= render "item", item: item %>
       </div>
-      <div class="text-center"><%= paginate(@items) %></div>
-     </div>
+       <% end %>
   </div>
 </div>
+      <div class="text-center"><%= paginate(@items) %></div>
+
